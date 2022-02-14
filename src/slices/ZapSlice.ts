@@ -136,6 +136,7 @@ export const executeZap = createAsyncThunk(
         +slippage / 100,
         networkID,
       );
+      const gasLimit = +rawTransactionData.estimatedGas * 1.02;
       const zapContract = Zap__factory.connect(addresses[networkID].ZAP, signer);
       let tx: ethers.ContractTransaction;
       if (tokenAddress === ethers.constants.AddressZero) {
@@ -147,7 +148,7 @@ export const executeZap = createAsyncThunk(
           rawTransactionData.to,
           rawTransactionData.data,
           address,
-          { value: sellAmount },
+          { value: sellAmount, gasLimit },
         );
       } else {
         tx = await zapContract.ZapStake(
@@ -158,6 +159,7 @@ export const executeZap = createAsyncThunk(
           rawTransactionData.to,
           rawTransactionData.data,
           address,
+          { gasLimit },
         );
       }
       await tx.wait();
