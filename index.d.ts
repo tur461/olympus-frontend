@@ -4,7 +4,6 @@ declare module "*.svg";
 
 declare global {
   interface CustomWindow extends Window {
-    console: any;
     analytics: any;
   }
 

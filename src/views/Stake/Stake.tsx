@@ -43,10 +43,14 @@ const Stake: React.FC = () => {
   const [quantity, setQuantity] = useState("");
   const [confirmation, setConfirmation] = useState(false);
 
+  const stateChecking = useAppSelector(state => state);
+  console.log("stateChecking", stateChecking);
+
   const isAppLoading = useAppSelector(state => state.app.loading);
   const currentIndex = useAppSelector(state => {
     return state.app.currentIndex;
   });
+
   const fiveDayRate = useAppSelector(state => {
     return state.app.fiveDayRate;
   });
