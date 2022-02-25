@@ -227,7 +227,7 @@ const appSlice = createSlice({
       })
       .addCase(loadAppDetails.rejected, (state, { error }) => {
         state.loading = false;
-        console.error(error.name, error.message, error.stack);
+        console.error("error.name", error.name, error.message, error.stack);
       })
       .addCase(loadMarketPrice.pending, (state, action) => {
         state.loadingMarketPrice = true;

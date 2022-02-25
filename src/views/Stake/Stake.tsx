@@ -50,6 +50,7 @@ const Stake: React.FC = () => {
   const currentIndex = useAppSelector(state => {
     return state.app.currentIndex;
   });
+  console.log("currentIndex", currentIndex);
 
   const fiveDayRate = useAppSelector(state => {
     return state.app.fiveDayRate;
@@ -272,6 +273,7 @@ const Stake: React.FC = () => {
     minimumFractionDigits: 0,
   }).format(stakingTVL);
   const formattedCurrentIndex = trim(Number(currentIndex), 1);
+  console.log("formattedCurrentIndex", Number(formattedCurrentIndex));
 
   let stakeOnClick: () => Promise<{ payload: string; type: string } | undefined | void>;
   let stakeDisabled: boolean;

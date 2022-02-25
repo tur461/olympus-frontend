@@ -136,6 +136,7 @@ export const OHMStakedGraph = () => {
         timestamp: metric.timestamp,
       }))
       .filter(metric => metric.staked < 100);
+  console.log("staked", staked);
 
   return (
     <Chart
