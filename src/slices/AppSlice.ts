@@ -223,7 +223,6 @@ const appSlice = createSlice({
         state.loading = true;
       })
       .addCase(loadAppDetails.fulfilled, (state, action) => {
-        console.log(action, "fulfilled");
         setAll(state, action.payload);
         state.loading = false;
       })
