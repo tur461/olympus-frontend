@@ -50,7 +50,7 @@ export const loadAppDetails = createAsyncThunk(
 
     if (networkID !== NetworkId.MAINNET) {
       provider = NodeHelper.getMainnetStaticProvider();
-      networkID = NetworkId.MAINNET;
+      networkID = NetworkId.TESTNET_RINKEBY;
     }
     const graphData = await apollo<{ protocolMetrics: IProtocolMetrics[] }>(protocolMetricsQuery);
 
@@ -58,7 +58,7 @@ export const loadAppDetails = createAsyncThunk(
       console.error("Returned a null response when querying TheGraph");
       return;
     }
-
+    console.log("before.....");
     const stakingTVL = parseFloat(graphData.data.protocolMetrics[0].totalValueLocked);
     // NOTE (appleseed): marketPrice from Graph was delayed, so get CoinGecko price
     // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ohmPrice);
@@ -92,24 +92,36 @@ export const loadAppDetails = createAsyncThunk(
       } as IAppData;
     }
     const currentBlock = await provider.getBlockNumber();
-
+    console.log(networkID, "stakingContractV1befrore");
     const stakingContract = OlympusStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
     const stakingContractV1 = OlympusStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
-
     const sohmMainContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, sOHMv2, provider) as SOhmv2;
+    console.log(await stakingContract.address, "stakingContractaddress");
+    console.log(await stakingContractV1.address, "stakingContractaddressv1");
 
     // Calculating staking
     const epoch = await stakingContract.epoch();
-    const secondsToEpoch = Number(await stakingContract.secondsToNextEpoch());
+    console.log(Number(epoch), "epoch");
+    const epoch2 = await stakingContractV1.epoch;
+    console.log(Number(epoch2), "epoch2");
+    const secondsToEpoch = Number(await stakingContract.secondsToNextEpoch);
+    console.log(secondsToEpoch, "secondsToEpoch");
+
     const stakingReward = epoch.distribute;
+    console.log(Number(stakingReward), "stakingReward");
+
     const circ = await sohmMainContract.circulatingSupply();
+    console.log(Number(circ), "circ");
+
     const stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
+    // console.log(sohmMainContract, "sohmMainContract");
 
     // Current index
     const currentIndex = await stakingContract.index();
     const currentIndexV1 = await stakingContractV1.index();
+    console.log(Number(currentIndex), "currentIndex");
     return {
       currentIndex: ethers.utils.formatUnits(currentIndex, "gwei"),
       currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
