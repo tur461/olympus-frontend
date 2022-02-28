@@ -73,7 +73,7 @@ export const loadAppDetails = createAsyncThunk(
       console.error("Returned a null response from dispatch(loadMarketPrice)");
       return;
     }
-    console.log(graphData, "graphDatagraphData");
+    console.log(graphData, "graphDatagraphData55ryr");
     const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
     const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
@@ -94,19 +94,32 @@ export const loadAppDetails = createAsyncThunk(
     const currentBlock = await provider.getBlockNumber();
 
     const stakingContract = OlympusStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
+    console.log("provider", provider);
+
     const stakingContractV1 = OlympusStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
+    console.log("stakingContract", await stakingContract.epoch());
 
     const sohmMainContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, sOHMv2, provider) as SOhmv2;
 
     // Calculating staking
     const epoch = await stakingContract.epoch();
+    // console.log("epoch", epoch);
     const secondsToEpoch = Number(await stakingContract.secondsToNextEpoch());
     const stakingReward = epoch.distribute;
     const circ = await sohmMainContract.circulatingSupply();
     const stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
-
+    // console.log(
+    //   "epoch secondsToEpoch stakingReward circ, stakingRebase, fiveDayRate stakingAPY",
+    //   epoch,
+    //   secondsToEpoch,
+    //   stakingReward,
+    //   circ,
+    //   stakingRebase,
+    //   fiveDayRate,
+    //   stakingAPY,
+    // );
     // Current index
     const currentIndex = await stakingContract.index();
     const currentIndexV1 = await stakingContractV1.index();
@@ -217,9 +230,9 @@ const appSlice = createSlice({
     },
   },
   extraReducers: builder => {
+    console.log("builder", builder);
     builder
       .addCase(loadAppDetails.pending, state => {
-        console.log("tytffg");
         state.loading = true;
       })
       .addCase(loadAppDetails.fulfilled, (state, action) => {
@@ -228,7 +241,7 @@ const appSlice = createSlice({
       })
       .addCase(loadAppDetails.rejected, (state, { error }) => {
         state.loading = false;
-        console.error("rejected", error.name, error.message, error.stack);
+        console.error("uiuerere", error.name, error.message, error.stack);
       })
       .addCase(loadMarketPrice.pending, (state, action) => {
         state.loadingMarketPrice = true;
@@ -245,7 +258,7 @@ const appSlice = createSlice({
 });
 
 const baseInfo = (state: RootState) => state.app;
-
+console.log("baseInfo", baseInfo);
 export default appSlice.reducer;
 
 export const { fetchAppSuccess } = appSlice.actions;
