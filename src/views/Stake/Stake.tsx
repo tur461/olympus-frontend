@@ -143,14 +143,10 @@ const Stake: React.FC = () => {
   const stakingAPY = useAppSelector(state => {
     return state.app.stakingAPY || 0;
   });
-  console.log("stakingAPY", stakingAPY);
   const stakingTVL = useAppSelector(state => {
     return state.app.stakingTVL || 0;
   });
-  // const temptr = useAppSelector(state => {
-  //   return state.app || 0;
-  // });
-  // console.log("temptr", temptr);
+
   const pendingTransactions = useAppSelector(state => {
     return state.pendingTransactions;
   });
@@ -275,7 +271,6 @@ const Stake: React.FC = () => {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   }).format(stakingTVL);
-  console.log("formattedStakingTVL", formattedStakingTVL);
   const formattedCurrentIndex = trim(Number(currentIndex), 1);
 
   let stakeOnClick: () => Promise<{ payload: string; type: string } | undefined | void>;
