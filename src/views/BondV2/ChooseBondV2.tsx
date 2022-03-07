@@ -95,11 +95,14 @@ function ChooseBondV2() {
             />
           </MetricCollection>
           {console.log(bondsV2.length, "bondsV2.length")}
-          {bondsV2.length == 0 && !isBondsLoading && (
-            <Box display="flex" justifyContent="center" marginY="24px">
-              <Typography variant="h4">No active bonds</Typography>
-            </Box>
-          )}
+          {
+            (console.log("isBondsLoading", isBondsLoading, bondsV2.length),
+            bondsV2.length == 0 && !isBondsLoading && (
+              <Box display="flex" justifyContent="center" marginY="24px">
+                <Typography variant="h4">No active bonds</Typography>
+              </Box>
+            ))
+          }
 
           {!isSmallScreen && bondsV2.length != 0 && (
             <Grid container item>

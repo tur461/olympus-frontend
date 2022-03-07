@@ -503,6 +503,7 @@ const bondingSliceV2 = createSlice({
   initialState,
   reducers: {
     fetchBondSuccessV2(state, action) {
+      debugger;
       state.bonds[action.payload.bond] = action.payload;
     },
   },

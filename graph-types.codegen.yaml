@@ -2,7 +2,7 @@
 # generates .d.ts files using graphql schemas
 # https://www.graphql-code-generator.com/docs/getting-started/codegen-config
 
-schema: https://api.thegraph.com/subgraphs/name/pooltogether/rinkeby-v3_4_3
+schema: https://api.thegraph.com/subgraphs/name/n-antier/learning-first-subgarph
 generates:
   ./src/typechain/PoolTogether.d.ts:
     documents: ./src/**/poolTogether*.graphql

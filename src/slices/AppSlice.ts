@@ -53,7 +53,6 @@ export const loadAppDetails = createAsyncThunk(
       networkID = NetworkId.TESTNET_RINKEBY;
     }
     const graphData = await apollo<{ protocolMetrics: IProtocolMetrics[] }>(protocolMetricsQuery);
-
     if (!graphData || graphData == null) {
       console.error("Returned a null response when querying TheGraph");
       return;
@@ -73,7 +72,7 @@ export const loadAppDetails = createAsyncThunk(
       console.error("Returned a null response from dispatch(loadMarketPrice)");
       return;
     }
-    console.log(graphData, "graphDatagraphData");
+    console.log("graphdatata", graphData);
     const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
     const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
@@ -122,6 +121,8 @@ export const loadAppDetails = createAsyncThunk(
     const currentIndex = await stakingContract.index();
     const currentIndexV1 = await stakingContractV1.index();
     console.log(Number(currentIndex), "currentIndex");
+    console.log("treasuryMarketValue", treasuryMarketValue);
+
     return {
       currentIndex: ethers.utils.formatUnits(currentIndex, "gwei"),
       currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),

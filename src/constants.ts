@@ -1,4 +1,4 @@
-export const THE_GRAPH_URL = "https://api.thegraph.com/subgraphs/name/drondin/olympus-protocol-metrics";
+export const THE_GRAPH_URL = "https://api.thegraph.com/subgraphs/name/n-antier/learning-first-subgarph";
 export const EPOCH_INTERVAL = 2200;
 
 // NOTE could get this from an outside source since it changes slightly over time
@@ -11,8 +11,8 @@ interface IPoolGraphURLS {
 }
 
 export const POOL_GRAPH_URLS: IPoolGraphURLS = {
-  4: "https://api.thegraph.com/subgraphs/name/pooltogether/rinkeby-v3_4_3",
-  1: "https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-v3_4_3",
+  4: "https://api.thegraph.com/subgraphs/name/n-antier/learning-first-subgarph",
+  1: "https://api.thegraph.com/subgraphs/name/n-antier/learning-first-subgarph",
 };
 
 export * from "./networkDetails";

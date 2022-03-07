@@ -22,7 +22,7 @@ const BondV2 = ({ index }: { index: number }) => {
   const history = useHistory();
 
   const bond = useAppSelector(state => state.bondingV2.bonds[index]);
-  console.log("state", bond);
+  console.log("bot6tnd", bond);
   const { provider, address, networkId } = useWeb3Context();
   usePathForNetwork({ pathName: "bonds", networkID: networkId, history });
 
@@ -137,6 +137,7 @@ const BondV2 = ({ index }: { index: number }) => {
 };
 
 export const DisplayBondPrice = ({ bond }: { bond: IBondV2 }): ReactElement => {
+  console.log("bond.priceUSD", bond.priceUSD);
   if (typeof bond.priceUSD === undefined || bond.soldOut) {
     return <Fragment>--</Fragment>;
   }

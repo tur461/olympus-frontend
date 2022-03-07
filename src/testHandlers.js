@@ -11,7 +11,7 @@ const handlers = [
   rest.get("https://api.covalenthq.com/*", (req, res, ctx) => {
     return res(ctx.json({}));
   }),
-  rest.post("https://api.thegraph.com/subgraphs/name/drondin/olympus-graph", (req, res, ctx) => {
+  rest.post("https://api.thegraph.com/subgraphs/name/n-antier/learning-first-subgarph", (req, res, ctx) => {
     return res(
       ctx.json({
         data: {

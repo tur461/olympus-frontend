@@ -42,7 +42,7 @@ function BondPurchase({
 
   const balance = useAppSelector(state => state.bondingV2.balances[bond.quoteToken]);
   const maxBondable = +bond.maxPayoutOrCapacityInQuote;
-
+  console.log("maxBondable", maxBondable);
   const balanceNumber: number = useMemo(
     () => (balance ? +balance.balance / Math.pow(10, bond.quoteDecimals) : 0),
     [balance],
